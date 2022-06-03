@@ -1,11 +1,22 @@
+// Dependencies
 const express = require("express");
-const path = require("path");
-const notes = require("./db/db.json");
 
-const PORT = 3001;
+// Express configuration
 
 const app = express();
 
-app.listen(PORT, () =>
-  console.log(`Express server is start listening on port ${PORT}!`)
-);
+// Sets an initial port.
+const PORT = process.env.PORT || 3000;
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+
+// ROUTES
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
+
+app.listen(PORT, function () {
+  console.log(`App listening on PORT: ${PORT}`);
+});
