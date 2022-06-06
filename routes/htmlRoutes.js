@@ -1,17 +1,15 @@
 // Dependencies
-const express = require("express");
+
 const path = require("path");
 
-const app = express();
+module.exports = function (app) {
+  // HTML GET Requests
 
-// HTML GET Requests
+  app.get("/notes", function (request, response) {
+    response.sendFile(path.join(__dirname, "../public/notes.html"));
+  });
 
-app.get("/notes", function (request, response) {
-  response.sendFile(path.join(__dirname, "../public/notes.html"));
-});
-
-app.get("*", function (request, response) {
-  response.sendFile(path.join(__dirname, "../public/index.html"));
-});
-
-module.exports = app;
+  app.get("*", function (request, response) {
+    response.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+};
