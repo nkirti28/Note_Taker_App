@@ -1,31 +1,31 @@
-//Dependencies -
+// Dependencies
 const fs = require("fs");
 
-//import uuid from npm package module
+// imported 'uuid' npm package for unique id
 const { v4: uuidv4 } = require("uuid");
 
-//ROUTING
-module.exports = function (app) {
-  //API GET Request
-  app.get("/api/get/notes", (res, req) => {
+// ROUTING
+module.exports = (app) => {
+  // API GET Request
+  app.get("/api/notes", (request, response) => {
     console.log("\n\nExecuting GET notes request");
 
-    // Read db.json file
-    let data = JSON.parse(fs.readFileSync("../db/db.json", "utf-8"));
+    // Read 'db.json' file
+    let data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
 
     console.log(
       "\nGET request - Returning notes data: " + JSON.stringify(data)
     );
 
-    // send data to response of GET request
-
-    res.json(data);
+    // Send read data to response of 'GET' request
+    response.json(data);
   });
 
-  //API POST Request
-  app.post("/api/post/notes", (res, req) => {
-    // Get new note from request body
-    const newNote = req.body;
+  // API POST Request
+  app.post("/api/notes", (request, response) => {
+    // Extracted new note from request body.
+    const newNote = request.body;
+
     console.log("\n\nPOST request - New Note : " + JSON.stringify(newNote));
 
     // Assigned unique id obtained from 'uuid' package
@@ -43,13 +43,13 @@ module.exports = function (app) {
     console.log("\nSuccessfully added new note to 'db.json' file!");
 
     // Send response
-    res.json(data);
+    response.json(data);
   });
 
-  // API DELETE Request
-  app.delete("api\notes:id", (req, res) => {
-    //get id from request body parameters
-    let noteId = req.params.id.toString();
+  // API DELETE request
+  app.delete("/api/notes/:id", (request, response) => {
+    // Fetched id to delete
+    let noteId = request.params.id.toString();
 
     console.log(`\n\nDELETE note request for noteId: ${noteId}`);
 
@@ -65,6 +65,6 @@ module.exports = function (app) {
     console.log(`\nSuccessfully deleted note with id : ${noteId}`);
 
     // Send response
-    res.json(newData);
+    response.json(newData);
   });
 };
