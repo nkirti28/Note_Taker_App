@@ -45,9 +45,7 @@ For more information on how to add screenshots for examples, visit the following
 
 [Mark Down Tutorial](https://agea.github.io/tutorial.md/)
 
-![Demo]
-
-![Screenshots]
+![Heroku]
 
 ## [License](#table-of-contents)
 
